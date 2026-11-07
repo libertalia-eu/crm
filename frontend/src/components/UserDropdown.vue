@@ -164,6 +164,16 @@ function getStandardItem(item) {
   }
 }
 
+// The window name makes a second click reuse the window; `noopener` would ignore the name, so the opener is cut afterwards.
+function openApp(app) {
+  const target = window.open(app.route, `compass-${app.name}`)
+  try {
+    target.opener = null
+  } catch (e) {
+    // a reused window of another host has the opener cut already
+  }
+}
+
 function appMenuItems() {
   return (apps.data || []).map((app) => ({
     label: app.title,
