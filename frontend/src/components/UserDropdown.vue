@@ -167,7 +167,7 @@ function getStandardItem(item) {
 function appMenuItems() {
   return (apps.data || []).map((app) => ({
     label: app.title,
-    onClick: () => (window.location.href = app.route),
+    onClick: () => window.open(app.route, "_blank", "noopener"),
     slots: {
       prefix: () => h('img', { class: 'size-5 rounded-4', src: app.logo }),
     },
