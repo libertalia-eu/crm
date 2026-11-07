@@ -164,14 +164,16 @@ function getStandardItem(item) {
   }
 }
 
-// The window name makes a second click reuse the window; `noopener` would ignore the name, so the opener is cut afterwards.
+// The window name makes a second click reuse the window; `noopener` would ignore the name, and an opener cut after opening the
+// address does not hold. So the empty window opens first, loses its opener, and only then gets the address.
 function openApp(app) {
-  const target = window.open(app.route, `compass-${app.name}`)
+  const target = window.open('', `compass-${app.name}`)
   try {
     target.opener = null
   } catch (e) {
     // a reused window of another host has the opener cut already
   }
+  target.location.href = app.route
 }
 
 function appMenuItems() {
