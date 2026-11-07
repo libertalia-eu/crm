@@ -73,7 +73,7 @@ const apps = createResource({
   url: 'frappe.apps.get_apps',
   cache: 'apps',
   auto: true,
-  transform: (data) => [deskApp(), ...crmSiblingApps(data)],
+  transform: (data) => crmSiblingApps(data),
 })
 
 const dropdownItems = computed(() => {
@@ -172,15 +172,6 @@ function appMenuItems() {
       prefix: () => h('img', { class: 'size-5 rounded-4', src: app.logo }),
     },
   }))
-}
-
-function deskApp() {
-  return {
-    name: 'frappe',
-    logo: '/assets/frappe/images/framework.png',
-    title: __('Desk'),
-    route: '/desk',
-  }
 }
 
 function crmSiblingApps(data) {
